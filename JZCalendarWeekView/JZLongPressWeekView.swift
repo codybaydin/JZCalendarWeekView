@@ -144,6 +144,9 @@ open class JZLongPressWeekView: JZBaseWeekView {
     }
 
     private func setupGestures() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTapGesture(_:)))
+        collectionView.addGestureRecognizer(tapGesture)
+
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPressGesture(_:)))
         longPressGesture.delegate = self
         collectionView.addGestureRecognizer(longPressGesture)
@@ -400,13 +403,14 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         let pointInCollectionView = gestureRecognizer.location(in: collectionView)
 
         let state = gestureRecognizer.state
-        var currentMovingCell: UICollectionViewCell!
+        var currentMovingCell: JZLongPressEventCell!
 
         if isLongPressing == false {
-            if let indexPath = collectionView.indexPathForItem(at: pointInCollectionView) {
+            if let indexPath = collectionView.indexPathForItem(at: pointInCollectionView),
+                let cell = collectionView.cellForItem(at: indexPath) as? JZLongPressEventCell {
                 // Can add some conditions for allowing only few types of cells can be moved
                 currentLongPressType = .move
-                currentMovingCell = collectionView.cellForItem(at: indexPath)
+                currentMovingCell = cell
             } else {
                 currentLongPressType = .addNew
             }
@@ -435,7 +439,7 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
             longPressView.center = CGPoint(x: pointInSelfView.x - pressPosition!.xToViewLeft + currentEditingInfo.cellSize.width/2,
                                            y: pointInSelfView.y - pressPosition!.yToViewTop + currentEditingInfo.cellSize.height/2)
             if currentLongPressType == .move {
-                currentEditingInfo.event = (currentMovingCell as! JZLongPressEventCell).event
+                currentEditingInfo.event = currentMovingCell.event
                 getCurrentMovingCells().forEach {
                     $0.contentView.layer.opacity = movingCellOpacity
                     currentEditingInfo.allOpacityContentViews.append($0.contentView)
@@ -484,6 +488,22 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
                 currentEditingInfo.allOpacityContentViews.removeAll()
             }
             return
+        }
+    }
+    
+    @objc private func handleTapGesture(_ gestureRecognizer: UITapGestureRecognizer) {
+
+        let pointInSelfView = gestureRecognizer.location(in: self)
+        /// Used for get startDate of longPressView
+        let pointInCollectionView = gestureRecognizer.location(in: collectionView)
+
+        let state = gestureRecognizer.state
+
+        if state == .ended {
+            pressPosition = (flowLayout.sectionWidth/2, 0)
+            let tapStartDate = getLongPressViewStartDate(pointInCollectionView: pointInCollectionView, pointInSelfView: pointInSelfView)
+            longPressDelegate?.weekView(self, didEndAddNewLongPressAt: tapStartDate)
+            pressPosition = nil
         }
     }
 
