@@ -12,6 +12,7 @@ open class JZBaseEvent: NSObject, NSCopying {
 
     /// Unique id for each event to identify an event, especially for cross-day events
     public var id: String
+    public var calendarID: String
 
     public var startDate: Date
     public var endDate: Date
@@ -21,8 +22,9 @@ open class JZBaseEvent: NSObject, NSCopying {
     public var intraStartDate: Date
     public var intraEndDate: Date
 
-    public init(id: String, startDate: Date, endDate: Date) {
+    public init(id: String, calendarID: String, startDate: Date, endDate: Date) {
         self.id = id
+        self.calendarID = calendarID
         self.startDate = startDate
         self.endDate = endDate
         self.intraStartDate = startDate
@@ -32,6 +34,6 @@ open class JZBaseEvent: NSObject, NSCopying {
     // Must be overridden
     // Shadow copy is enough for JZWeekViewHelper to create multiple events for cross-day events
     open func copy(with zone: NSZone? = nil) -> Any {
-        return JZBaseEvent(id: id, startDate: startDate, endDate: endDate)
+        return JZBaseEvent(id: id, calendarID: calendarID, startDate: startDate, endDate: endDate)
     }
 }

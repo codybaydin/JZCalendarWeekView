@@ -13,13 +13,13 @@ open class JZAllDayEvent: JZBaseEvent {
     /// If a event is All-Day, then it will be shown at top of calendarView
     public var isAllDay: Bool
 
-    public init(id: String, startDate: Date, endDate: Date, isAllDay: Bool) {
+    public init(id: String, calendarID: String, startDate: Date, endDate: Date, isAllDay: Bool) {
         self.isAllDay = isAllDay
-        super.init(id: id, startDate: startDate, endDate: endDate)
+        super.init(id: id, calendarID: calendarID, startDate: startDate, endDate: endDate)
     }
 
     open override func copy(with zone: NSZone?) -> Any {
-        return JZAllDayEvent(id: id, startDate: startDate, endDate: endDate, isAllDay: isAllDay)
+        return JZAllDayEvent(id: id, calendarID: calendarID, startDate: startDate, endDate: endDate, isAllDay: isAllDay)
     }
 
 }
