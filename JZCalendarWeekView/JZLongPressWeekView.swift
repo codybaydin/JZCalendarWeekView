@@ -15,7 +15,8 @@ public protocol JZLongPressViewDelegate: class {
     /// - Parameters:
     ///   - weekView: current long pressed JZLongPressWeekView
     ///   - startDate: the startDate of the event when gesture ends
-    func weekView(_ weekView: JZLongPressWeekView, didEndAddNewLongPressAt startDate: Date)
+    ///   - isAllDay: the event when gesture ends is all day or not
+    func weekView(_ weekView: JZLongPressWeekView, didEndAddNewLongPressAt startDate: Date, isAllDay allDay: Bool)
 
     /// When Move long press gesture ends, this function will be called.
     /// You should handle what should be done after editing (moving) a existed event.
@@ -55,7 +56,7 @@ public protocol JZLongPressViewDataSource: class {
 extension JZLongPressViewDelegate {
     // Keep them optional
     public func weekView(_ weekView: JZLongPressWeekView, longPressType: JZLongPressWeekView.LongPressType, didCancelLongPressAt startDate: Date) {}
-    public func weekView(_ weekView: JZLongPressWeekView, didEndAddNewLongPressAt startDate: Date) {}
+    public func weekView(_ weekView: JZLongPressWeekView, didEndAddNewLongPressAt startDate: Date, isAllDay allDay: Bool) {}
     public func weekView(_ weekView: JZLongPressWeekView, editingEvent: JZBaseEvent, didEndMoveLongPressAt startDate: Date) {}
 }
 
@@ -122,7 +123,7 @@ open class JZLongPressWeekView: JZBaseWeekView {
 
     /// The most top Y in the collectionView that you want longPress gesture enable.
     /// If you customise some decoration and supplementry views on top, **must** override this variable
-    open var longPressTopMarginY: CGFloat { return flowLayout.columnHeaderHeight + flowLayout.allDayHeaderHeight }
+    open var longPressTopMarginY: CGFloat { return flowLayout.columnHeaderHeight }
     /// The most bottom Y in the collectionView that you want longPress gesture enable.
     /// If you customise some decoration and supplementry views on bottom, **must** override this variable
     open var longPressBottomMarginY: CGFloat { return frame.height }
@@ -466,8 +467,9 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         } else if state == .ended {
 
             self.longPressView.removeFromSuperview()
+            let isAllDay = pointIsInAllDayView(pointInSelfView: pointInSelfView)
             if currentLongPressType == .addNew {
-                longPressDelegate?.weekView(self, didEndAddNewLongPressAt: longPressViewStartDate)
+                longPressDelegate?.weekView(self, didEndAddNewLongPressAt: longPressViewStartDate, isAllDay: isAllDay)
             } else if currentLongPressType == .move {
                 longPressDelegate?.weekView(self, editingEvent: currentEditingInfo.event, didEndMoveLongPressAt: longPressViewStartDate)
             }
@@ -502,7 +504,8 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         if state == .ended {
             pressPosition = (flowLayout.sectionWidth/2, 0)
             let tapStartDate = getLongPressViewStartDate(pointInCollectionView: pointInCollectionView, pointInSelfView: pointInSelfView)
-            longPressDelegate?.weekView(self, didEndAddNewLongPressAt: tapStartDate)
+            let isAllDay = pointIsInAllDayView(pointInSelfView: pointInSelfView)
+            longPressDelegate?.weekView(self, didEndAddNewLongPressAt: tapStartDate, isAllDay: isAllDay)
             pressPosition = nil
         }
     }
@@ -514,6 +517,9 @@ extension JZLongPressWeekView: UIGestureRecognizerDelegate {
         return longPressViewStartDate
     }
 
+    private func pointIsInAllDayView(pointInSelfView: CGPoint) -> Bool {
+        return pointInSelfView.y < flowLayout.columnHeaderHeight + flowLayout.allDayHeaderHeight
+    }
 }
 
 extension JZLongPressWeekView {
