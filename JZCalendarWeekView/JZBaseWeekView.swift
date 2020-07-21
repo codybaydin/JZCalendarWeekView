@@ -73,6 +73,7 @@ open class JZBaseWeekView: UIView {
     private var isFirstAppear: Bool = true
     internal var isAllDaySupported: Bool!
     internal var scrollDirection: ScrollDirection?
+    open var showsColumnHeader: Bool = true
 
     // Scrollable Range
     internal var scrollableEdges: (leftX: CGFloat?, rightX: CGFloat?)
@@ -90,6 +91,7 @@ open class JZBaseWeekView: UIView {
     open func setup() {
         flowLayout = JZWeekViewFlowLayout()
         flowLayout.delegate = self
+        flowLayout.columnHeaderHeight = showsColumnHeader ? flowLayout.columnHeaderHeight : 0
 
         collectionView = JZCollectionView(frame: bounds, collectionViewLayout: flowLayout)
         collectionView.delegate = self
