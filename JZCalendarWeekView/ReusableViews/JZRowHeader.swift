@@ -31,9 +31,10 @@ open class JZRowHeader: UICollectionReusableView {
     open func setupBasic() {
         // Hide all content when colum header height equals 0
         self.clipsToBounds = true
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
         lblTime.textColor = JZWeekViewColors.rowHeaderTime
-        lblTime.font = UIFont.systemFont(ofSize: 12)
+        lblTime.font = UIFont(name: "Lato", size: 13)
     }
 
     public func updateView(date: Date) {

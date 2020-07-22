@@ -190,7 +190,8 @@ extension Date {
 
     func getTimeIgnoreSecondsFormat() -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
         return formatter.string(from: self)
     }
 

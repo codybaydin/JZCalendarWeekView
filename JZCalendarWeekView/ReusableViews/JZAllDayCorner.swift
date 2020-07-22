@@ -25,7 +25,7 @@ open class JZAllDayCorner: UICollectionReusableView {
         self.addSubview(lblTitle)
         lblTitle.text = "all-day"
         lblTitle.textColor = JZWeekViewColors.allDayHeader
-        lblTitle.font = UIFont.systemFont(ofSize: 12)
+        lblTitle.font = UIFont(name: "Lato", size: 13)
         // Support iPhone X Landscape state (same as JZRowHeader)
         lblTitle.setAnchorCenterVerticallyTo(view: self, trailingAnchor: (self.trailingAnchor, -2))
     }

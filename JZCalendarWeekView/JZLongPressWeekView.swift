@@ -113,7 +113,7 @@ open class JZLongPressWeekView: JZBaseWeekView {
     /// The longPressTimeLabel along with longPressView, can be customised
     public var longPressTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont(name: "Lato", size: 14)
         label.textColor = UIColor.gray
         return label
     }()

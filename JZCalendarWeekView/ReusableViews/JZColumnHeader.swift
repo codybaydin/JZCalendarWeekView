@@ -36,8 +36,8 @@ open class JZColumnHeader: UICollectionReusableView {
         stackView.setAnchorConstraintsEqualTo(centerXAnchor: centerXAnchor, centerYAnchor: centerYAnchor)
         lblDay.textAlignment = .center
         lblWeekday.textAlignment = .center
-        lblDay.font = UIFont.systemFont(ofSize: 17)
-        lblWeekday.font = UIFont.systemFont(ofSize: 12)
+        lblDay.font = UIFont(name: "Lato", size: 17)
+        lblWeekday.font = UIFont(name: "Lato", size: 13)
     }
 
     public func updateView(date: Date) {
