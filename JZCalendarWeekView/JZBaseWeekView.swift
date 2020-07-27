@@ -104,6 +104,8 @@ open class JZBaseWeekView: UIView {
         addSubview(collectionView)
         collectionView.setAnchorConstraintsFullSizeTo(view: self)
 
+        flowLayout.backgroundColor = collectionView.backgroundColor ?? .white
+
         registerViewClasses()
     }
 
@@ -467,6 +469,9 @@ extension JZBaseWeekView: UICollectionViewDataSource {
             }
         case JZSupplementaryViewKinds.cornerHeader:
             if let cornerHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: kind, for: indexPath) as? JZCornerHeader {
+                if let firstDate = getDatesInCurrentPage(isScrolling: false).first {
+                    cornerHeader.updateView(date: firstDate)
+                }
                 view = cornerHeader
             }
         case JZSupplementaryViewKinds.allDayHeader:

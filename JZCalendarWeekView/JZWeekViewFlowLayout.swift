@@ -27,10 +27,11 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
     public var sectionWidth: CGFloat!
     public var hourGridDivision: JZHourGridDivision!
     var minuteHeight: CGFloat { return hourHeight / 60 }
+    var backgroundColor: UIColor!
 
     open var defaultHourHeight: CGFloat { return 50 }
-    open var defaultRowHeaderWidth: CGFloat { return 65 }
-    open var defaultColumnHeaderHeight: CGFloat { return 44 }
+    open var defaultRowHeaderWidth: CGFloat { return 72 }
+    open var defaultColumnHeaderHeight: CGFloat { return 60 }
     open var defaultHourGridDivision: JZHourGridDivision { return .noneDiv }
     // You can change following constants
     open var defaultGridThickness: CGFloat { return 0.5 }
@@ -464,7 +465,8 @@ open class JZWeekViewFlowLayout: UICollectionViewFlowLayout {
 
         if layoutAttributes == nil {
             var _itemCache = itemCache
-            layoutAttributes = UICollectionViewLayoutAttributes(forDecorationViewOfKind: kind, with: indexPath)
+            layoutAttributes = JZLayoutAttributes(forDecorationViewOfKind: kind, with: indexPath)
+            (layoutAttributes as! JZLayoutAttributes).backgroundColor = backgroundColor
             _itemCache[indexPath] = layoutAttributes
             return (layoutAttributes!, _itemCache)
         } else {

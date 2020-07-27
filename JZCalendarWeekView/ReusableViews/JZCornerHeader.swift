@@ -11,22 +11,38 @@ import UIKit
 /// Top Left corner in collectionView (Supplementary View)
 open class JZCornerHeader: UICollectionReusableView {
 
+    public var lblMonth = UILabel()
+    let calendarCurrent = Calendar.current
+    public var dateFormatter = DateFormatter()
+
     public override init(frame: CGRect) {
         super.init(frame: .zero)
 
         self.backgroundColor = .white
-        setupBottomDivider()
+        setupUI()
     }
 
-    open func setupBottomDivider() {
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    open func setupUI() {
+        self.clipsToBounds = true
+        lblMonth.textAlignment = .center
+        lblMonth.font = UIFont(name: "Lato-Bold", size: 20)
+        addSubview(lblMonth)
+        lblMonth.setAnchorConstraintsEqualTo(centerXAnchor: centerXAnchor, centerYAnchor: centerYAnchor)
+
         let bottomDivider = UIView()
         bottomDivider.backgroundColor = JZWeekViewColors.gridLine
         addSubview(bottomDivider)
         bottomDivider.setAnchorConstraintsEqualTo(heightAnchor: 0.5, bottomAnchor: (bottomAnchor, 0), leadingAnchor: (leadingAnchor, 0), trailingAnchor: (trailingAnchor, 0))
     }
 
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    public func updateView(date: Date) {
+        let month = calendarCurrent.component(.month, from: date) - 1
+
+        lblMonth.text = dateFormatter.shortMonthSymbols[month].capitalized
     }
 
 }

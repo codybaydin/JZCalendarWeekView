@@ -12,10 +12,16 @@ open class JZRowHeaderBackground: UICollectionReusableView {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clear
-
+        backgroundColor = UIColor.white
     }
 
+    open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+        if let layoutAttributes = layoutAttributes as? JZLayoutAttributes {
+            backgroundColor = layoutAttributes.backgroundColor
+        }
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

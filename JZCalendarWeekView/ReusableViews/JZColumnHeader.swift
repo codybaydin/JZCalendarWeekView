@@ -29,22 +29,22 @@ open class JZColumnHeader: UICollectionReusableView {
     private func setupUI() {
         // Hide all content when colum header height equals 0
         self.clipsToBounds = true
-        let stackView = UIStackView(arrangedSubviews: [lblWeekday, lblDay])
+        let stackView = UIStackView(arrangedSubviews: [lblDay, lblWeekday])
         stackView.axis = .vertical
         stackView.spacing = 2
         addSubview(stackView)
         stackView.setAnchorConstraintsEqualTo(centerXAnchor: centerXAnchor, centerYAnchor: centerYAnchor)
         lblDay.textAlignment = .center
         lblWeekday.textAlignment = .center
-        lblDay.font = UIFont(name: "Lato", size: 17)
-        lblWeekday.font = UIFont(name: "Lato", size: 13)
+        lblDay.font = UIFont(name: "Lato-Bold", size: 18)
+        lblWeekday.font = UIFont(name: "Lato", size: 12)
     }
 
     public func updateView(date: Date) {
         let weekday = calendarCurrent.component(.weekday, from: date) - 1
 
         lblDay.text = String(calendarCurrent.component(.day, from: date))
-        lblWeekday.text = dateFormatter.shortWeekdaySymbols[weekday].uppercased()
+        lblWeekday.text = dateFormatter.weekdaySymbols[weekday].capitalized
 
         if date.isToday {
             lblDay.textColor = JZWeekViewColors.today
