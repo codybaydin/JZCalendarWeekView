@@ -31,6 +31,7 @@ open class JZAllDayHeader: UICollectionReusableView {
         self.clipsToBounds = true
         setupScrollView()
         setupStackView()
+        setupLeftDivider()
     }
 
     private func setupScrollView() {
@@ -50,6 +51,13 @@ open class JZAllDayHeader: UICollectionReusableView {
         stackView.axis = .vertical
     }
 
+    private func setupLeftDivider() {
+        let leftDivider = UIView()
+        leftDivider.backgroundColor = JZWeekViewColors.gridLine
+        addSubview(leftDivider)
+        leftDivider.setAnchorConstraintsEqualTo(widthAnchor: 0.5, topAnchor: (topAnchor, 0), bottomAnchor: (bottomAnchor, 0), leadingAnchor: (leadingAnchor, 0))
+    }
+    
     /// All-Day Header is reused as SupplementaryView, it should be updated when viewForSupplementaryElementOfKind called
     ///
     /// - Parameter views: The views your want to add to stackView

@@ -19,6 +19,7 @@ open class JZColumnHeader: UICollectionReusableView {
     public override init(frame: CGRect) {
         super.init(frame: .zero)
         setupUI()
+        setupLeftDivider()
         backgroundColor = .clear
     }
 
@@ -38,6 +39,13 @@ open class JZColumnHeader: UICollectionReusableView {
         lblWeekday.textAlignment = .center
         lblDay.font = UIFont(name: "Lato-Bold", size: 18)
         lblWeekday.font = UIFont(name: "Lato", size: 12)
+    }
+
+    private func setupLeftDivider() {
+        let leftDivider = UIView()
+        leftDivider.backgroundColor = JZWeekViewColors.gridLine
+        addSubview(leftDivider)
+        leftDivider.setAnchorConstraintsEqualTo(widthAnchor: 0.5, topAnchor: (topAnchor, 0), bottomAnchor: (bottomAnchor, 0), leadingAnchor: (leadingAnchor, 0))
     }
 
     public func updateView(date: Date) {
