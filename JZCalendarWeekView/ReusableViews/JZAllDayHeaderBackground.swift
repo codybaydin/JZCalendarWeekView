@@ -14,7 +14,11 @@ open class JZAllDayHeaderBackground: UICollectionReusableView {
         super.init(frame: frame)
 
         self.clipsToBounds = true
-        self.backgroundColor = .white
+        if #available(iOS 13.0, *) {
+            self.backgroundColor = UIColor.tertiarySystemBackground
+        } else {
+            self.backgroundColor = UIColor(red: 242/255, green: 243/255, blue: 244/255, alpha: 1.0)
+        }
         setupBottomDivider()
     }
 
