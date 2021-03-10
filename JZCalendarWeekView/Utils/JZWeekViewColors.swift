@@ -9,7 +9,7 @@
 import Foundation
 
 /// cannot change for now, will implement theme in the future
-class JZWeekViewColors {
+open class JZWeekViewColors {
 
     class var columnHeaderWeekday: UIColor { return UIColor(hex: 0x757575) }
     class var columnHeaderDay: UIColor { return UIColor(hex: 0x757575) }
@@ -23,7 +23,7 @@ class JZWeekViewColors {
         }
     }
 
-    class var today: UIColor { return UIColor(hex: 0x0089FF) }
+    public static var today = UIColor(hex: 0x0089FF)
     class var appleCalendarRed: UIColor { return UIColor(hex: 0xFC3D39) }
 }
 
