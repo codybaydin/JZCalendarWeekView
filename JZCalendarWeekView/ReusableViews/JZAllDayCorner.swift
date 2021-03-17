@@ -21,7 +21,7 @@ open class JZAllDayCorner: UICollectionReusableView {
 
     open func setupUI() {
         if #available(iOS 13.0, *) {
-            self.backgroundColor = UIColor.tertiarySystemBackground
+            self.backgroundColor = UIColor.secondarySystemBackground
         } else {
             self.backgroundColor = .white
         }
