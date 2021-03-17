@@ -34,6 +34,7 @@ open class JZCornerHeader: UICollectionReusableView {
         self.clipsToBounds = true
         lblMonth.textAlignment = .center
         lblMonth.font = UIFont(name: "Lato-Bold", size: 20)
+        lblMonth.textColor = JZWeekViewColors.today
         addSubview(lblMonth)
         lblMonth.setAnchorConstraintsEqualTo(centerXAnchor: centerXAnchor, centerYAnchor: centerYAnchor)
 
