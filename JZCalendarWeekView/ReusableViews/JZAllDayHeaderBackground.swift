@@ -15,7 +15,7 @@ open class JZAllDayHeaderBackground: UICollectionReusableView {
 
         self.clipsToBounds = true
         if #available(iOS 13.0, *) {
-            self.backgroundColor = UIColor.secondarySystemBackground
+            self.backgroundColor = UIColor.secondarySystemGroupedBackground
         } else {
             self.backgroundColor = .white
         }

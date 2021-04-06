@@ -19,9 +19,9 @@ open class JZCornerHeader: UICollectionReusableView {
         super.init(frame: .zero)
 
         if #available(iOS 13.0, *) {
-            backgroundColor = UIColor.secondarySystemBackground
+            backgroundColor = UIColor.secondarySystemGroupedBackground
         } else {
-            backgroundColor = UIColor(red: 242/255, green: 243/255, blue: 244/255, alpha: 1.0)
+            backgroundColor = .white
         }
         setupUI()
     }

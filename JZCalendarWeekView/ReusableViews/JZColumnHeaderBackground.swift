@@ -14,9 +14,9 @@ open class JZColumnHeaderBackground: UICollectionReusableView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         if #available(iOS 13.0, *) {
-            backgroundColor = UIColor.secondarySystemBackground
+            backgroundColor = UIColor.secondarySystemGroupedBackground
         } else {
-            backgroundColor = UIColor(red: 242/255, green: 243/255, blue: 244/255, alpha: 1.0)
+            backgroundColor = .white
         }
         self.clipsToBounds = true
         setupBottomDivider()
