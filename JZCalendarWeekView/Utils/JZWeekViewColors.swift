@@ -12,7 +12,13 @@ import Foundation
 open class JZWeekViewColors {
 
     class var columnHeaderWeekday: UIColor { return UIColor(hex: 0x757575) }
-    class var columnHeaderDay: UIColor { return UIColor(hex: 0x757575) }
+    class var columnHeaderDay: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor.label
+        } else {
+            return UIColor.black
+        }
+    }
     class var allDayHeader: UIColor { return UIColor(hex: 0x757575) }
     class var rowHeaderTime: UIColor { return UIColor(hex: 0x999999) }
     class var gridLine: UIColor {

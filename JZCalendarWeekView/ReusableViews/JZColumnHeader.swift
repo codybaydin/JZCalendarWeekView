@@ -11,6 +11,7 @@ import UIKit
 /// Header for each column (section, day) in collectionView (Supplementary View)
 open class JZColumnHeader: UICollectionReusableView {
 
+    public var lblDayBackground = UIView()
     public var lblDay = UILabel()
     public var lblWeekday = UILabel()
     let calendarCurrent = Calendar.current
@@ -30,15 +31,22 @@ open class JZColumnHeader: UICollectionReusableView {
     private func setupUI() {
         // Hide all content when colum header height equals 0
         self.clipsToBounds = true
-        let stackView = UIStackView(arrangedSubviews: [lblDay, lblWeekday])
+        let stackView = UIStackView(arrangedSubviews: [lblWeekday, lblDayBackground])
         stackView.axis = .vertical
-        stackView.spacing = 2
+        stackView.spacing = 0
         addSubview(stackView)
         stackView.setAnchorConstraintsEqualTo(centerXAnchor: centerXAnchor, centerYAnchor: centerYAnchor)
         lblDay.textAlignment = .center
         lblWeekday.textAlignment = .center
-        lblDay.font = UIFont(name: "Lato-Bold", size: 18)
+        lblDay.font = UIFont(name: "Lato-Bold", size: 20)
         lblWeekday.font = UIFont(name: "Lato", size: 12)
+        lblDay.clipsToBounds = true
+        lblDayBackground.addSubview(lblDay)
+        
+        let circleDiameter: CGFloat = 32
+        lblDay.setAnchorConstraintsEqualTo(widthAnchor: circleDiameter, heightAnchor: circleDiameter, centerXAnchor: lblDayBackground.centerXAnchor, centerYAnchor: lblDayBackground.centerYAnchor)
+        lblDayBackground.setAnchorConstraintsEqualTo(heightAnchor: circleDiameter)
+        lblDay.layer.cornerRadius = circleDiameter / 2
     }
 
     private func setupLeftDivider() {
@@ -55,10 +63,12 @@ open class JZColumnHeader: UICollectionReusableView {
         lblWeekday.text = dateFormatter.weekdaySymbols[weekday].capitalized
 
         if date.isToday {
-            lblDay.textColor = JZWeekViewColors.today
+            lblDay.textColor = .white
+            lblDay.backgroundColor = JZWeekViewColors.today
             lblWeekday.textColor = JZWeekViewColors.today
         } else {
             lblDay.textColor = JZWeekViewColors.columnHeaderDay
+            lblDay.backgroundColor = .clear
             lblWeekday.textColor = JZWeekViewColors.columnHeaderDay
         }
     }
