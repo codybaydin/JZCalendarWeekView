@@ -715,7 +715,7 @@ extension JZBaseWeekView: WeekViewFlowLayoutDelegate {
         return getDateForSection(section)
     }
 
-    public func collectionView(_ collectionView: UICollectionView, layout: JZWeekViewFlowLayout, startTimeForItemAtIndexPath indexPath: IndexPath) -> Date {
+    @objc open func collectionView(_ collectionView: UICollectionView, layout: JZWeekViewFlowLayout, startTimeForItemAtIndexPath indexPath: IndexPath) -> Date {
         let date = flowLayout.dateForColumnHeader(at: indexPath)
 
         if let events = allEventsBySection[date] {
@@ -726,7 +726,7 @@ extension JZBaseWeekView: WeekViewFlowLayoutDelegate {
         }
     }
 
-    public func collectionView(_ collectionView: UICollectionView, layout: JZWeekViewFlowLayout, endTimeForItemAtIndexPath indexPath: IndexPath) -> Date {
+    @objc open func collectionView(_ collectionView: UICollectionView, layout: JZWeekViewFlowLayout, endTimeForItemAtIndexPath indexPath: IndexPath) -> Date {
         let date = flowLayout.dateForColumnHeader(at: indexPath)
 
         if let events = allEventsBySection[date] {
